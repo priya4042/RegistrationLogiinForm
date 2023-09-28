@@ -1,0 +1,38 @@
+﻿@model RegistrationLogiinForm.Models.User
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password)
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+}
+
+<div class="mt-3">
+    <p>Don't have an account? <a href="@Url.Action("Register", "Account")">Register here</a></p>
+</div>
+
+With this code, the login view displays a "Don't have an account?" link that redirects the user to the registration page when clicked. The registration link is generated using @Url.Action("Register", "Account"), which will take users to the Register action in the AccountController.
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
